@@ -5,6 +5,7 @@ class VirtualPet {
     this.fun = 100;
     this.hunger = 100;
     this.energy = 100;
+    this.isAlive = true;
   }
 
   eatFood() {
@@ -12,7 +13,7 @@ class VirtualPet {
       this.hunger += 10;
     } else {
       this.hunger = 100;
-      alert(`${this.name} is full!`)
+      alert(`${this.name} is full!`);
     }
   }
 
@@ -21,7 +22,7 @@ class VirtualPet {
       this.energy += 10;
     } else {
       this.energy = 100;
-      alert(`${this.name} is not sleepy!`)
+      alert(`${this.name} is not sleepy!`);
     }
   }
 
@@ -35,10 +36,15 @@ class VirtualPet {
   }
 
   increaseAge() {
-    this.age +=1;
-    const ageDisplay = document.getElementById("age");
-    ageDisplay.textContent = this.age;
-}
+      if (this.age < 100) {
+        this.age += 5;
+        const ageDisplay = document.getElementById("age");
+        ageDisplay.textContent = this.age;
+      } else {
+      this.isAlive = false;
+      alert(`${this.name} has died of old age :(`);
+    }
+  }
 }
 
 // Creating the prompt for the name
@@ -49,14 +55,14 @@ const myPet = new VirtualPet(petName);
 
 // console.log(myPet)
 
-let newName = document.getElementById("pet-name")
-newName.innerHTML = `${petName} says hi!`
+let newName = document.getElementById("pet-name");
+newName.innerHTML = `${petName} says hi!`;
 
 // Created function that calls the increaseAge() function after a certain amount of time
 function ageIncreaseTimer() {
-    setInterval(function () {
-        myPet.increaseAge()
-    }, 3000);
+  setInterval(function () {
+    myPet.increaseAge();
+  }, 3000);
 }
 ageIncreaseTimer();
 
@@ -64,15 +70,12 @@ const eatButton = document.querySelector("#feed-button");
 const sleepButton = document.querySelector("#sleep-button");
 const playButton = document.querySelector("#play-button");
 
-eatButton.addEventListener("click", function() {
-    myPet.eatFood();
-})
-sleepButton.addEventListener("click", function() {
-    myPet.sleep();
-})
-playButton.addEventListener("click", function() {
-    myPet.playTime();
-})
-
-
-
+eatButton.addEventListener("click", function () {
+  myPet.eatFood();
+});
+sleepButton.addEventListener("click", function () {
+  myPet.sleep();
+});
+playButton.addEventListener("click", function () {
+  myPet.playTime();
+});
