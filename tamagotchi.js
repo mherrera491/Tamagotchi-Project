@@ -27,8 +27,10 @@ class VirtualPet {
   }
 
   playTime() {
-    if (this.fun < 90) {
+    if (this.fun < 100) {
       this.fun += 10;
+      const funDisplay = document.getElementById("fun")
+      funDisplay.textContent = `${this.fun}%`
     } else {
       this.fun = 100;
       alert(`${this.name} has had enough playtime.`);
@@ -36,13 +38,23 @@ class VirtualPet {
   }
 
   increaseAge() {
-      if (this.age < 100) {
-        this.age += 5;
-        const ageDisplay = document.getElementById("age");
-        ageDisplay.textContent = this.age;
-      } else {
+    if (this.age < 100) {
+      this.age += 5;
+      const ageDisplay = document.getElementById("age");
+      ageDisplay.textContent = this.age;
+    } else {
       this.isAlive = false;
       alert(`${this.name} has died of old age :(`);
+    }
+  }
+  decreaseFun() {
+    if (this.fun > 0) {
+      this.fun -= 5;
+      const funDisplay = document.getElementById("fun");
+      funDisplay.textContent = `${this.fun}%`;
+    } else {
+      this.isAlive = false;
+      alert(`${this.name} has died of boredom :(`);
     }
   }
 }
@@ -65,6 +77,13 @@ function ageIncreaseTimer() {
   }, 3000);
 }
 ageIncreaseTimer();
+
+function decreaseFunTimer() {
+    setInterval(function () {
+        myPet.decreaseFun();
+    }, 1000);
+}
+decreaseFunTimer();
 
 const eatButton = document.querySelector("#feed-button");
 const sleepButton = document.querySelector("#sleep-button");
