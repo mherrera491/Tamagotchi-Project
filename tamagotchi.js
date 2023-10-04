@@ -22,7 +22,7 @@ class VirtualPet {
   sleep() {
     if (this.energy <= 90) {
       this.energy += 10;
-      console.log("Energy updated: ", this.energy);
+      // console.log("Energy updated: ", this.energy);
       const sleepDisplay = document.getElementById("energy");
       sleepDisplay.textContent = `${this.energy}%`;
     } else {
@@ -143,7 +143,7 @@ function startGame() {
   // console.log(myPet)
 
   let newName = document.getElementById("pet-name");
-  newName.innerHTML = `${petName} says hi!`;
+  newName.innerHTML = `${petName}`;
 
   // Created function that calls the increaseAge() function after a certain amount of time
   function ageIncreaseTimer() {
@@ -192,4 +192,4 @@ function startGame() {
     myPet.playTime();
   });
 }
-// startGame();
+startGame();
