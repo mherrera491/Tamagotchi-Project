@@ -22,8 +22,9 @@ class VirtualPet {
   sleep() {
     if (this.energy <= 90) {
       this.energy += 10;
-      const sleepDisplay = document.getElementById("sleep");
-      sleepDisplay.textContent = `${this.sleep}%`;
+      console.log("Energy updated: ", this.energy)
+      const sleepDisplay = document.getElementById("energy");
+      sleepDisplay.textContent = `${this.energy}%`;
     } else {
       this.energy > 90;
       alert(`${this.name} is not sleepy!`);
@@ -42,6 +43,8 @@ class VirtualPet {
   }
 }
 
+// wrapped the game logic in a startGame function this will be used for resetting the game once the pet dies
+function startGame() {
 // Creating the prompt for the name
 const petName = prompt("What is your virtual pet's name?");
 
@@ -53,9 +56,8 @@ function resetGame(pet) {
   pet.energy = 100;
   pet.isAlive = true;
 
-  alert("Game has reset!");
   const ageDisplay = document.getElementById("age");
-  ageDisplay.textContent = `${pet.age}`;
+  ageDisplay.textContent = pet.age;
   const funDisplay = document.getElementById("fun");
   funDisplay.textContent = `${pet.fun}%`;
   const hungerDisplay = document.getElementById("hunger");
@@ -63,9 +65,15 @@ function resetGame(pet) {
   const energyDisplay = document.getElementById("energy");
   energyDisplay.textContent = `${pet.energy}%`;
 
+  alert("Game has reset!");
 }
 
-// The following 4 functions age up and decrease teh hunger, energy, and fun of the pet
+function resetAndAskForName(pet) {
+  resetGame(pet);
+  startGame();
+}
+
+// The following 4 functions age up and decrease the hunger, energy, and fun of the pet. They will reset if the pet gets too old or the hunger, fun, and energy levels reach 10
 function increaseAge(pet) {
   if (pet.age < 50) {
     pet.age += 5;
@@ -74,40 +82,40 @@ function increaseAge(pet) {
   } else {
     pet.isAlive = false;
     alert(`${pet.name} has died of old age :(`);
-    resetGame(pet);
+    resetAndAskForName(pet);
   }
 }
 function decreaseFun(pet) {
-  if (pet.fun > 0) {
+  if (pet.fun > 10) {
     pet.fun -= 10;
     const funDisplay = document.getElementById("fun");
     funDisplay.textContent = `${pet.fun}%`;
   } else {
     pet.isAlive = false;
     alert(`${pet.name} has died of boredom :(`);
-    resetGame(pet);
+    resetAndAskForName(pet);
   }
 }
 function decreaseHunger(pet) {
-  if (pet.hunger > 0) {
+  if (pet.hunger > 10) {
     pet.hunger -= 10;
     const hungerDisplay = document.getElementById("hunger");
     hungerDisplay.textContent = `${pet.hunger}%`;
   } else {
     pet.isAlive = false;
     alert(`${pet.name} has died of hunger :(`);
-    resetGame(pet);
+    resetAndAskForName(pet);
   }
 }
 function decreaseEnergy(pet) {
-  if (pet.energy > 0) {
+  if (pet.energy > 10) {
     pet.energy -= 10;
     const energyDisplay = document.getElementById("energy");
     energyDisplay.textContent = `${pet.energy}%`;
   } else {
     pet.isAlive = false;
     alert(`${pet.name} did not get enough sleep and has died :(`);
-    resetGame(pet);
+    resetAndAskForName(pet);
   }
 }
 
@@ -120,6 +128,20 @@ const myPet = new VirtualPet(petName);
 
 let newName = document.getElementById("pet-name");
 newName.innerHTML = `${petName} says hi!`;
+
+const eatButton = document.querySelector("#feed-button");
+const sleepButton = document.querySelector("#sleep-button");
+const playButton = document.querySelector("#play-button");
+
+eatButton.addEventListener("click", function () {
+  myPet.eatFood();
+});
+sleepButton.addEventListener("click", function () {
+  myPet.sleep();
+});
+playButton.addEventListener("click", function () {
+  myPet.playTime();
+});
 
 // Created function that calls the increaseAge() function after a certain amount of time
 function ageIncreaseTimer() {
@@ -152,17 +174,5 @@ function decreaseEnergyTimer() {
   }, 4000);
 }
 decreaseEnergyTimer();
-
-const eatButton = document.querySelector("#feed-button");
-const sleepButton = document.querySelector("#sleep-button");
-const playButton = document.querySelector("#play-button");
-
-eatButton.addEventListener("click", function () {
-  myPet.eatFood();
-});
-sleepButton.addEventListener("click", function () {
-  myPet.sleep();
-});
-playButton.addEventListener("click", function () {
-  myPet.playTime();
-});
+}
+startGame();
