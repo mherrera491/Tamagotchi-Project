@@ -3,4 +3,21 @@ body {
     height: 100vh;
     width: 100vw;
     background-color: lightcyan;
+    background-image: url("./assets/images/tamagotchi-background-day.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#game-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#pet-avatar {
+    max-width: 100%;
+    width: 300px;
+    height: auto;
+    margin-top: 250px;
 }

@@ -4,22 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="tamagotchi.js" defer></script>
-    <script
+    <!-- <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       defer
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
     <link rel="stylesheet" href="style.css" />
     <title>Tamagotchi Project</title>
   </head>
   <body>
-    <div id="game-box">
-      <h1>Tamagotchi Project</h1>
-      <img id="pet" src="./assets/images/baby2-stage.png" alt="Tamagotchi Pet" />
-      <div id="pet-name">
-        Name:
-      </div>
+    <h1>Tamagotchi Project</h1>
+
+    <div id="game-container">
+      <div id="pet-name"></div>
       <div id="status-checks">
         <p>Age: <span id="age">0</span></p>
         <p>Fun: <span id="fun">100%</span></p>
@@ -31,6 +29,11 @@
         <button id="feed-button">Eat</button>
         <button id="sleep-button">Sleep</button>
       </div>
+      <img
+        id="pet-avatar"
+        src="./assets/images/baby2-stage.png"
+        alt="Tamagotchi Pet"
+      />
     </div>
   </body>
 </html>
