@@ -192,4 +192,4 @@ function startGame() {
     myPet.playTime();
   });
 }
-startGame();
+// startGame();
