@@ -103,7 +103,41 @@ class VirtualPet {
     }
   }
 
+  // Created function that calls the increaseAge() function after a certain amount of time
+  ageIncreaseTimer() {
+    setInterval(() => {
+      this.increaseAge();
+    }, 2000);
+  }
+
+  // Created function that calls the decreaseFun() function after a certain amount of time
+  decreaseFunTimer() {
+    setInterval(() => {
+      this.decreaseFun();
+    }, 5000);
+  }
+
+  // Created function that calls the decreaseHunger() function after a certain amount of time
+  decreaseHungerTimer() {
+    setInterval(() => {
+      this.decreaseHunger();
+    }, 3000);
+  }
+
+  // Created function that calls the decreaseEnergy() function after a certain amount of time passes
+  decreaseEnergyTimer() {
+    setInterval(() => {
+      this.decreaseEnergy();
+    }, 4000);
+  }
+
   reset() {
+    // Clearing the existing timers using clearInterval to ensure timers reset when the game restarts
+    clearInterval(ageTimer);
+    clearInterval(funTimer);
+    clearInterval(hungerTimer);
+    clearInterval(energyTimer);
+
     // Resetting all pet properties and updating display
     this.age = 0;
     this.fun = 100;
@@ -120,16 +154,15 @@ class VirtualPet {
     const energyDisplay = document.getElementById("energy");
     energyDisplay.textContent = `${this.energy}%`;
 
-    // Clearing the existing timers using clearInterval to ensure timers reset when the game restarts
-    clearInterval(ageTimer);
-    clearInterval(funTimer);
-    clearInterval(hungerTimer);
-    clearInterval(energyTimer);
-
     alert("Game has reset!");
     startGame();
   }
 }
+
+// Declaring variables to store time interval IDs
+let ageTimer, funTimer, hungerTimer, energyTimer;
+// declaring myPet as a global variable for later functions
+let myPet;
 
 // wrapped the game logic in a startGame function this will be used for resetting the game once the pet dies
 function startGame() {
@@ -144,38 +177,10 @@ function startGame() {
   const newName = document.getElementById("pet-name");
   newName.innerHTML = `${petName}`;
 
-  // Created function that calls the increaseAge() function after a certain amount of time
-  function ageIncreaseTimer() {
-    ageTimer = setInterval(function () {
-      myPet.increaseAge();
-    }, 2000);
-  }
-  ageIncreaseTimer();
-
-  // Created function that calls the decreaseFun() function after a certain amount of time
-  function decreaseFunTimer() {
-    funTimer = setInterval(function () {
-      myPet.decreaseFun();
-    }, 5000);
-  }
-  decreaseFunTimer();
-
-  // Created function that calls the decreaseHunger() function after a certain amount of time
-  function decreaseHungerTimer() {
-    hungerTimer = setInterval(function () {
-      myPet.decreaseHunger();
-    }, 3000);
-  }
-  decreaseHungerTimer();
-
-  // Created function that calls the decreaseEnergy() function after a certain amount of time passes
-  function decreaseEnergyTimer() {
-    energyTimer = setInterval(function () {
-      myPet.decreaseEnergy();
-    }, 4000);
-  }
-  decreaseEnergyTimer();
-}
+  myPet.ageIncreaseTimer();
+  myPet.decreaseFunTimer();
+  myPet.decreaseHungerTimer();
+  myPet.decreaseEnergyTimer();
 
   // added event listeners to buttons
   const eatButton = document.querySelector("#feed-button");
@@ -215,5 +220,5 @@ function startGame() {
   playButton.addEventListener("click", function () {
     myPet.playTime();
   });
-
+}
 startGame();
