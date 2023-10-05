@@ -177,6 +177,7 @@ function startGame() {
   }
   decreaseEnergyTimer();
 
+
   // added event listeners to buttons
   const eatButton = document.querySelector("#feed-button");
   const sleepButton = document.querySelector("#sleep-button");
@@ -185,8 +186,15 @@ function startGame() {
   eatButton.addEventListener("click", function () {
     myPet.eatFood();
   });
+
+  // Sleep button runs the sleep() function and also changes the background image to a night scene for 2 seconds
   sleepButton.addEventListener("click", function () {
     myPet.sleep();
+    const body = document.getElementById("main-body");
+    body.style.backgroundImage = 'url("./assets/images/tamagotchi-background-night.png")'
+    setTimeout(function() {
+      body.style.backgroundImage = 'url("./assets/images/tamagotchi-background-day.png")'
+    }, 3000);
   });
   playButton.addEventListener("click", function () {
     myPet.playTime();

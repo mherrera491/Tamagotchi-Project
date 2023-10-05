@@ -40,9 +40,9 @@ h1 {
     margin: 5px 0;
 }
 
-#activity-buttons {
+/* #activity-buttons {
     
-}
+} */
 
 @keyframes moveLeftAndRight {
     0% {
@@ -58,7 +58,7 @@ h1 {
 
 #pet-avatar {
     max-width: 100%;
-    width: 300px;
+    width: 20vw;
     height: auto;
     position: absolute;
     bottom: 10px;
