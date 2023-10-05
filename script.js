@@ -8,6 +8,7 @@ class VirtualPet {
     this.isAlive = true;
   }
 
+  // Following methods are for eating, sleeping, and playing
   eatFood() {
     if (this.hunger <= 90) {
       this.hunger += 10;
@@ -41,60 +42,14 @@ class VirtualPet {
       alert(`${this.name} has had enough playtime.`);
     }
   }
-}
 
-// Declaring variables to store time interval IDs
-let ageTimer, funTimer, hungerTimer, energyTimer;
-
-// wrapped the game logic in a startGame function this will be used for resetting the game once the pet dies
-function startGame() {
-  // Creating the prompt for the name
-  const petName = prompt("What is your virtual pet's name?");
-
-  // The following functions reset the game once the pet dies
-  function resetGame(pet) {
-    pet.age = 0;
-    pet.fun = 100;
-    pet.hunger = 100;
-    pet.energy = 100;
-    pet.isAlive = true;
-
-    const ageDisplay = document.getElementById("age");
-    ageDisplay.textContent = pet.age;
-    const funDisplay = document.getElementById("fun");
-    funDisplay.textContent = `${pet.fun}%`;
-    const hungerDisplay = document.getElementById("hunger");
-    hungerDisplay.textContent = `${pet.hunger}%`;
-    const energyDisplay = document.getElementById("energy");
-    energyDisplay.textContent = `${pet.energy}%`;
-
-    alert("Game has reset!");
-
-    // Clearing the existing timers using clearInterval to ensure timers reset when the game restarts
-    clearInterval(ageTimer);
-    clearInterval(funTimer);
-    clearInterval(hungerTimer);
-    clearInterval(energyTimer);
-    // Restarts timers
-    ageIncreaseTimer();
-    decreaseFunTimer();
-    decreaseHungerTimer();
-    decreaseEnergyTimer():
-  }
-
-  function resetAndAskForName(pet) {
-    resetGame(pet);
-    startGame();
-  }
-
-  // Following function updates the pet's avatar as it ages up and gives an alert each time it does
-  function updatePetImage(pet) {
+  updatePetImage() {
     const petImage = document.getElementById("pet-avatar");
-    if (pet.age < 5) {
+    if (this.age < 5) {
       petImage.src = "./assets/images/baby2-stage.png";
-    } else if (pet.age < 13) {
+    } else if (this.age < 13) {
       petImage.src = "./assets/images/child2-stage.png";
-    } else if (pet.age < 20) {
+    } else if (this.age < 20) {
       petImage.src = "./assets/images/teenager2-stage.png";
     } else {
       petImage.src = "./assets/images/adult2-stage.png";
@@ -102,64 +57,102 @@ function startGame() {
   }
 
   // The following 4 functions age up and decrease the hunger, energy, and fun of the pet. They will reset if the pet gets too old or the hunger, fun, and energy levels reach 10
-  function increaseAge(pet) {
-    if (pet.age < 50) {
-      pet.age += 1;
+  increaseAge() {
+    if (this.age < 50) {
+      this.age += 1;
       const ageDisplay = document.getElementById("age");
-      ageDisplay.textContent = pet.age;
-      updatePetImage(pet);
+      ageDisplay.textContent = this.age;
+      this.updatePetImage();
     } else {
-      pet.isAlive = false;
-      alert(`${pet.name} has died of old age :(`);
-      resetAndAskForName(pet);
+      this.isAlive = false;
+      alert(`${this.name} has died of old age :(`);
+      this.reset();
     }
   }
-  function decreaseFun(pet) {
-    if (pet.fun > 10) {
-      pet.fun -= 10;
+  decreaseFun() {
+    if (this.fun > 10) {
+      this.fun -= 10;
       const funDisplay = document.getElementById("fun");
-      funDisplay.textContent = `${pet.fun}%`;
+      funDisplay.textContent = `${this.fun}%`;
     } else {
-      pet.isAlive = false;
-      alert(`${pet.name} has died of boredom :(`);
-      resetAndAskForName(pet);
+      this.isAlive = false;
+      alert(`${this.name} has died of boredom :(`);
+      this.reset();
     }
   }
-  function decreaseHunger(pet) {
-    if (pet.hunger > 10) {
-      pet.hunger -= 10;
+  decreaseHunger() {
+    if (this.hunger > 10) {
+      this.hunger -= 10;
       const hungerDisplay = document.getElementById("hunger");
-      hungerDisplay.textContent = `${pet.hunger}%`;
+      hungerDisplay.textContent = `${this.hunger}%`;
     } else {
-      pet.isAlive = false;
-      alert(`${pet.name} has died of hunger :(`);
-      resetAndAskForName(pet);
+      this.isAlive = false;
+      alert(`${this.name} has died of hunger :(`);
+      this.reset();
     }
   }
-  function decreaseEnergy(pet) {
-    if (pet.energy > 10) {
-      pet.energy -= 10;
+  decreaseEnergy() {
+    if (this.energy > 10) {
+      this.energy -= 10;
       const energyDisplay = document.getElementById("energy");
-      energyDisplay.textContent = `${pet.energy}%`;
+      energyDisplay.textContent = `${this.energy}%`;
     } else {
-      pet.isAlive = false;
-      alert(`${pet.name} did not get enough sleep and has died :(`);
-      resetAndAskForName(pet);
+      this.isAlive = false;
+      alert(`${this.name} did not get enough sleep and has died :(`);
+      this.reset();
     }
   }
+
+  reset() {
+    // Resetting all pet properties and updating display
+    this.age = 0;
+    this.fun = 100;
+    this.hunger = 100;
+    this.energy = 100;
+    this.isAlive = true;
+
+    const ageDisplay = document.getElementById("age");
+    ageDisplay.textContent = this.age;
+    const funDisplay = document.getElementById("fun");
+    funDisplay.textContent = `${this.fun}%`;
+    const hungerDisplay = document.getElementById("hunger");
+    hungerDisplay.textContent = `${this.hunger}%`;
+    const energyDisplay = document.getElementById("energy");
+    energyDisplay.textContent = `${this.energy}%`;
+
+    // Clearing the existing timers using clearInterval to ensure timers reset when the game restarts
+    clearInterval(ageTimer);
+    clearInterval(funTimer);
+    clearInterval(hungerTimer);
+    clearInterval(energyTimer);
+
+    alert("Game has reset!");
+    startGame();
+  }
+}
+
+// Declaring variables to store time interval IDs
+let ageTimer, funTimer, hungerTimer, energyTimer;
+// declaring myPet as a global variable for later functions
+let myPet;
+
+// wrapped the game logic in a startGame function this will be used for resetting the game once the pet dies
+function startGame() {
+  // Creating the prompt for the name
+  const petName = prompt("What is your virtual pet's name?");
 
   // creating a new instance of the VirtualPet class using the name given from the prompt
-  const myPet = new VirtualPet(petName);
-
+  myPet = new VirtualPet(petName);
   // console.log(myPet)
 
-  let newName = document.getElementById("pet-name");
+  // Updates the pet's name in the HTML
+  const newName = document.getElementById("pet-name");
   newName.innerHTML = `${petName}`;
 
   // Created function that calls the increaseAge() function after a certain amount of time
   function ageIncreaseTimer() {
     ageTimer = setInterval(function () {
-      increaseAge(myPet);
+      myPet.increaseAge();
     }, 2000);
   }
   ageIncreaseTimer();
@@ -167,7 +160,7 @@ function startGame() {
   // Created function that calls the decreaseFun() function after a certain amount of time
   function decreaseFunTimer() {
     funTimer = setInterval(function () {
-      decreaseFun(myPet);
+      myPet.decreaseFun();
     }, 5000);
   }
   decreaseFunTimer();
@@ -175,7 +168,7 @@ function startGame() {
   // Created function that calls the decreaseHunger() function after a certain amount of time
   function decreaseHungerTimer() {
     hungerTimer = setInterval(function () {
-      decreaseHunger(myPet);
+      myPet.decreaseHunger();
     }, 3000);
   }
   decreaseHungerTimer();
@@ -183,11 +176,10 @@ function startGame() {
   // Created function that calls the decreaseEnergy() function after a certain amount of time passes
   function decreaseEnergyTimer() {
     energyTimer = setInterval(function () {
-      decreaseEnergy(myPet);
+      myPet.decreaseEnergy();
     }, 4000);
   }
   decreaseEnergyTimer();
-
 
   // added event listeners to buttons
   const eatButton = document.querySelector("#feed-button");
@@ -202,13 +194,16 @@ function startGame() {
   sleepButton.addEventListener("click", function () {
     myPet.sleep();
     const body = document.getElementById("main-body");
-    body.style.backgroundImage = 'url("./assets/images/tamagotchi-background-night.png")'
-    setTimeout(function() {
-      body.style.backgroundImage = 'url("./assets/images/tamagotchi-background-day.png")'
+    body.style.backgroundImage =
+      'url("./assets/images/tamagotchi-background-night.png")';
+    setTimeout(function () {
+      body.style.backgroundImage =
+        'url("./assets/images/tamagotchi-background-day.png")';
     }, 3000);
   });
+
   playButton.addEventListener("click", function () {
     myPet.playTime();
   });
 }
-// startGame();
+startGame();
