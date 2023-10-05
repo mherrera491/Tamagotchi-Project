@@ -193,12 +193,26 @@ function startGame() {
   // Sleep button invokes the sleep() function and also changes the background image to a night scene for 2 seconds using the setTimeout function which is used to call a function after a certain amount of time
   sleepButton.addEventListener("click", function () {
     myPet.sleep();
+
     const body = document.getElementById("main-body");
     body.style.backgroundImage =
       'url("./assets/images/tamagotchi-background-night.png")';
+
+    const h1 = document.querySelector("h1");
+    h1.style.color = "white";
+
+    const nameText = document.querySelector("#pet-name");
+    nameText.style.color = "white";
+
+    const statText = document.querySelector("#status-checks");
+    statText.style.color = "white";
+
     setTimeout(function () {
       body.style.backgroundImage =
         'url("./assets/images/tamagotchi-background-day.png")';
+      h1.style.color = "black";
+      nameText.style.color = "black";
+      statText.style.color = "black";
     }, 3000);
   });
 
