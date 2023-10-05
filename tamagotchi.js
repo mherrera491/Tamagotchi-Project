@@ -43,12 +43,15 @@ class VirtualPet {
   }
 }
 
+// Declaring variables to store time interval IDs
+let ageTimer, funTimer, hungerTimer, energyTimer;
+
 // wrapped the game logic in a startGame function this will be used for resetting the game once the pet dies
 function startGame() {
   // Creating the prompt for the name
   const petName = prompt("What is your virtual pet's name?");
 
-  // The following function resets the game once the pet dies
+  // The following functions reset the game once the pet dies
   function resetGame(pet) {
     pet.age = 0;
     pet.fun = 100;
@@ -66,6 +69,17 @@ function startGame() {
     energyDisplay.textContent = `${pet.energy}%`;
 
     alert("Game has reset!");
+
+    // Clearing the existing timers using clearInterval to ensure timers reset when the game restarts
+    clearInterval(ageTimer);
+    clearInterval(funTimer);
+    clearInterval(hungerTimer);
+    clearInterval(energyTimer);
+    // Restarts timers
+    ageIncreaseTimer();
+    decreaseFunTimer();
+    decreaseHungerTimer();
+    decreaseEnergyTimer():
   }
 
   function resetAndAskForName(pet) {
@@ -80,13 +94,10 @@ function startGame() {
       petImage.src = "./assets/images/baby2-stage.png";
     } else if (pet.age < 13) {
       petImage.src = "./assets/images/child2-stage.png";
-      // alert(`${pet.name} has reached childhood!`);
     } else if (pet.age < 20) {
       petImage.src = "./assets/images/teenager2-stage.png";
-      // alert(`${pet.name} is now a teenager!`);
     } else {
       petImage.src = "./assets/images/adult2-stage.png";
-      // alert(`${pet.name} has reached adulthood!`);
     }
   }
 
@@ -147,7 +158,7 @@ function startGame() {
 
   // Created function that calls the increaseAge() function after a certain amount of time
   function ageIncreaseTimer() {
-    setInterval(function () {
+    ageTimer = setInterval(function () {
       increaseAge(myPet);
     }, 2000);
   }
@@ -155,7 +166,7 @@ function startGame() {
 
   // Created function that calls the decreaseFun() function after a certain amount of time
   function decreaseFunTimer() {
-    setInterval(function () {
+    funTimer = setInterval(function () {
       decreaseFun(myPet);
     }, 5000);
   }
@@ -163,7 +174,7 @@ function startGame() {
 
   // Created function that calls the decreaseHunger() function after a certain amount of time
   function decreaseHungerTimer() {
-    setInterval(function () {
+    hungerTimer = setInterval(function () {
       decreaseHunger(myPet);
     }, 3000);
   }
@@ -171,7 +182,7 @@ function startGame() {
 
   // Created function that calls the decreaseEnergy() function after a certain amount of time passes
   function decreaseEnergyTimer() {
-    setInterval(function () {
+    energyTimer = setInterval(function () {
       decreaseEnergy(myPet);
     }, 4000);
   }
@@ -187,7 +198,7 @@ function startGame() {
     myPet.eatFood();
   });
 
-  // Sleep button runs the sleep() function and also changes the background image to a night scene for 2 seconds
+  // Sleep button invokes the sleep() function and also changes the background image to a night scene for 2 seconds using the setTimeout function which is used to call a function after a certain amount of time
   sleepButton.addEventListener("click", function () {
     myPet.sleep();
     const body = document.getElementById("main-body");
@@ -200,4 +211,4 @@ function startGame() {
     myPet.playTime();
   });
 }
-startGame();
+// startGame();
